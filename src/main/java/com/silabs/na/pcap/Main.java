@@ -21,6 +21,8 @@ package com.silabs.na.pcap;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Main class for the CLI interface.
@@ -29,6 +31,16 @@ import java.io.PrintStream;
  */
 public class Main {
 
+  private enum Command {
+    DUMP("print out the full information about all blocks in the file"),
+    SUMMARY("print out the summary of the file");
+
+    private String description;
+    Command(final String description) {
+      this.description = description;
+    }
+  }
+
   private final PrintStream out;
 
   private Main(final PrintStream out) {
@@ -36,18 +48,43 @@ public class Main {
   }
 
   private void usage() {
-    out.println("Usage: java -jar silabs-pcap.jar [PCAPFILE]");
+    out.println("Usage: java -jar silabs-pcap.jar [COMMAND] [PCAPFILE]");
+    out.println("Valid commands:");
+    for ( Command c: Command.values() ) {
+      out.println("  " + c.name().toLowerCase() + ": " + c.description);
+    }
   }
 
   private void run(final String[] args) {
     if (args.length == 0) {
       usage();
     } else {
-      try {
-        analyzeFile(args[0]);
-      } catch (IOException ioe) {
-        out.println("Error reading file: " + args[0]);
-        out.println("Message: " + ioe.getMessage());
+      String commandS = args[0];
+      Command actualCommand = null;
+      for ( Command c: Command.values() ) {
+        if ( c.name().toLowerCase().equals(commandS.toLowerCase()) ) {
+          actualCommand = c;
+          break;
+        }
+      }
+      if ( actualCommand == null ) {
+        usage();
+      } else {
+        String path = args[1];
+        try {
+          switch(actualCommand) {
+          case DUMP:
+            dumpFile(path);
+            break;
+          case SUMMARY:
+            summarizeFile(path);
+            break;
+          }
+        } catch (IOException ioe) {
+          out.println("Error processing file: " + path);
+          out.println("Message: " + ioe.getMessage());
+        }
+
       }
     }
   }
@@ -58,21 +95,50 @@ public class Main {
     OptionType ot = OptionType.lookup(type, o.code());
     if (ot != null)
       isAscii = ot.isAscii();
-
-    if (isAscii)
-      return o.code() + ": " + new String(o.value());
+    StringBuilder sb = new StringBuilder();
+    sb.append(o.code());
+    if ( ot != null ) {
+      sb.append(" (").append(ot.name()).append(")");
+    }
+    sb.append(": ");
+    if ( isAscii )
+      sb.append(new String(o.value()));
     else
-      return o.code() + ": " + ByteArrayUtil.formatByteArray(o.value());
+      sb.append(ByteArrayUtil.formatByteArray(o.value()));
+    return sb.toString();
   }
 
-  private void analyzeFile(final String path) throws IOException {
+  private void summarizeFile(final String path) throws IOException {
+    File f = new File(path);
+    Map<BlockType, Integer> blockTypeCounters = new LinkedHashMap<>();
+    int n = 0;
+    try (IPcapInput in = Pcap.openForReading(f)) {
+      Block b;
+      while ((b = in.nextBlock()) != null) {
+        n++;
+        Integer x = blockTypeCounters.get(b.type());
+        if ( x == null ) {
+          blockTypeCounters.put(b.type(), 1);
+        } else {
+          blockTypeCounters.put(b.type(), x+1);
+        }
+      }
+    }
+    out.println("Total block count: " + n);
+    out.println("Counts per block type: ");
+    for  ( BlockType bt: blockTypeCounters.keySet()) {
+      out.println("  - " + bt.name() + ": " + blockTypeCounters.get(bt));
+    }
+  }
+
+  private void dumpFile(final String path) throws IOException {
     File f = new File(path);
     try (IPcapInput in = Pcap.openForReading(f)) {
       out.println("File type: " + in.type());
       Block b;
       int n = 0;
       while ((b = in.nextBlock()) != null) {
-        out.println(String.format("%06d", (n++)) + ": " + b.type().name());
+        out.println(String.format("Block #%06d", (n++)) + ": " + b.type().name());
         if (b.containsDataOfType(PacketBlock.class)) {
           PacketBlock pb = (PacketBlock) b.data();
           out.println("  - nanoseconds: " + pb.nanoseconds());
@@ -101,6 +167,7 @@ public class Main {
             out.println("    - " + formatOption(b.type(), o));
           }
         }
+        out.println();
       }
     }
   }

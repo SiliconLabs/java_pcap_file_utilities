@@ -18,10 +18,15 @@ This will result in a file:
 
 A quick and dirty way is to simply use the jar from command line:
 ```
-java -jar build/libs/java-pcap-<VERSION>.jar <PCAP_FILE>
+java -jar build/libs/java-pcap-<VERSION>.jar dump <PCAP_FILE>
 ```
-This will read the pcap or pcapng file provided and print out the details
-from that file.
+This will read the pcap or pcapng file provided and print out the details from that file.
+
+Full command line options are printed if you provide no arguments:
+```
+java -jar build/libs/java-pcap-<VERSION>.jar
+```
+
 
 # Can I contribute to this library?
 
@@ -33,7 +38,7 @@ The simplest example of a loop that reads entire block inside the pcap or
 pcapng file is as follows:
 ```
 File f = ...;
-try (IPcapInput in = Pcap.read(f)) {
+try (IPcapInput in = Pcap.openForReading(f)) {
     Block b;
     while ( (b=in.nextBlock()) != null ) {
         ... // do something with a block
