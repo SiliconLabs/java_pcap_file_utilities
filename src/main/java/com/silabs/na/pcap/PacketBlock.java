@@ -18,6 +18,8 @@ limitations under the License.
 
 package com.silabs.na.pcap;
 
+import com.silabs.na.pcap.util.ByteArrayUtil;
+
 /**
  * Single packet read from PCAP or PCAPNG.
  *

@@ -25,6 +25,7 @@ import java.io.IOException;
 import com.silabs.na.pcap.impl.PcapInputNio;
 import com.silabs.na.pcap.impl.PcapngInputNio;
 import com.silabs.na.pcap.impl.PcapngOutput;
+import com.silabs.na.pcap.util.ByteArrayUtil;
 
 /**
  * Entry level API for pcap support.
@@ -59,7 +60,19 @@ public class Pcap {
   }
 
   public static IPcapOutput openForWriting(final File f) throws IOException {
-    return new PcapngOutput(f);
+    return openForWriting(f,
+                          System.getProperty("os.arch"),
+                          System.getProperty("os.name") + ", ver " + System.getProperty("os.version"),
+                          "java-pcap");
+  }
+
+  public static IPcapOutput openForWriting(final File f,
+                                           final String hardware,
+                                           final String osName,
+                                           final String applicationName) throws IOException {
+    PcapngOutput po = new PcapngOutput(f);
+    po.writeSectionHeaderBlock(hardware, osName, applicationName);
+    return po;
   }
 
   /**

@@ -18,6 +18,8 @@ limitations under the License.
 
 package com.silabs.na.pcap;
 
+import com.silabs.na.pcap.util.BufferUtil;
+
 /**
  * Options are TLVs at the end of the blocks.
  *
@@ -48,5 +50,16 @@ public class Option {
    */
   public byte[] value() {
     return value;
+  }
+
+  /**
+   * Returns the total size of this option in bytes.
+   * The size includes the entire length including 2 byte code,
+   * 2 byte length and padding.
+   *
+   * @return
+   */
+  public int size() {
+    return 4 + value.length + BufferUtil.paddingLength(value.length, 4);
   }
 }

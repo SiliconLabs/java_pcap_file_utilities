@@ -24,6 +24,8 @@ import java.io.PrintStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.silabs.na.pcap.util.ByteArrayUtil;
+
 /**
  * Main class for the CLI interface.
  *
@@ -131,7 +133,7 @@ public class Main {
     }
   }
 
-  private void dumpFile(final String path) throws IOException {
+  public void dumpFile(final String path) throws IOException {
     File f = new File(path);
     try (IPcapInput in = Pcap.openForReading(f)) {
       out.println("File type: " + in.type());

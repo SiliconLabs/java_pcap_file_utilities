@@ -27,6 +27,7 @@ import com.silabs.na.pcap.Block;
 import com.silabs.na.pcap.BlockType;
 import com.silabs.na.pcap.IPcapInput;
 import com.silabs.na.pcap.PacketBlock;
+import com.silabs.na.pcap.util.BufferUtil;
 
 /**
  * The PCAP implementation variant.

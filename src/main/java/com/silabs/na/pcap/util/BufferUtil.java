@@ -16,21 +16,19 @@ limitations under the License.
 
 */
 
-package com.silabs.na.pcap.impl;
+package com.silabs.na.pcap.util;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.channels.ReadableByteChannel;
 
-import com.silabs.na.pcap.ByteArrayUtil;
-
 /**
  * Local utility class.
  *
  * @author Timotej Ecimovic
  */
-class BufferUtil {
+public class BufferUtil {
 
   private BufferUtil() {
   }
@@ -42,7 +40,7 @@ class BufferUtil {
    * @param byteBoundary
    * @return
    */
-  static int paddingLength(final int dataLength, final int byteBoundary) {
+  public static int paddingLength(final int dataLength, final int byteBoundary) {
     int rem = (dataLength % byteBoundary);
     if (rem == 0)
       return 0;
@@ -61,9 +59,9 @@ class BufferUtil {
    * @return
    * @throws IOException
    */
-  static int readNByteIntFromChannel(final ReadableByteChannel rbc,
-                                     final ByteBuffer buffer,
-                                     final int n) throws IOException {
+  public static int readNByteIntFromChannel(final ReadableByteChannel rbc,
+                                            final ByteBuffer buffer,
+                                            final int n) throws IOException {
     buffer.clear();
     buffer.limit(n);
     int howMany = rbc.read(buffer);
@@ -83,9 +81,9 @@ class BufferUtil {
    * @return
    * @throws IOException
    */
-  static byte[] readBytesFromChannel(final ReadableByteChannel rbc,
-                                     final ByteBuffer buffer,
-                                     final int length) throws IOException {
+  public static byte[] readBytesFromChannel(final ReadableByteChannel rbc,
+                                            final ByteBuffer buffer,
+                                            final int length) throws IOException {
     buffer.clear();
     byte[] data = new byte[length];
     int totalRead = 0;
@@ -114,7 +112,7 @@ class BufferUtil {
    * @param n
    * @return
    */
-  static int readNByteIntFromBuffer(final ByteBuffer buffer, final int n) {
+  public static int readNByteIntFromBuffer(final ByteBuffer buffer, final int n) {
     byte[] bytes = new byte[n];
     buffer.get(bytes);
     return ByteArrayUtil

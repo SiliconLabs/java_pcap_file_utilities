@@ -16,7 +16,7 @@ limitations under the License.
 
 */
 
-package com.silabs.na.pcap;
+package com.silabs.na.pcap.util;
 
 /**
  * Various static utilities for dealing with byte arrays and formatting them.

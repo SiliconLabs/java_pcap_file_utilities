@@ -21,7 +21,7 @@ package com.silabs.pcap;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.silabs.na.pcap.ByteArrayUtil;
+import com.silabs.na.pcap.util.ByteArrayUtil;
 
 /**
  * Unit test for the utilities that are part of the pcap library.

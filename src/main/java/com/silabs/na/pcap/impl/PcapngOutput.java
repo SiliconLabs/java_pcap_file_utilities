@@ -32,6 +32,7 @@ import com.silabs.na.pcap.LinkType;
 import com.silabs.na.pcap.Option;
 import com.silabs.na.pcap.OptionType;
 import com.silabs.na.pcap.Pcap;
+import com.silabs.na.pcap.util.BufferUtil;
 
 /**
  * Pcapng implementation of the output stream.
@@ -56,7 +57,6 @@ public class PcapngOutput implements IPcapOutput {
                                StandardOpenOption.WRITE,
                                StandardOpenOption.CREATE,
                                StandardOpenOption.TRUNCATE_EXISTING);
-    writeSectionHeaderBlock();
   }
 
   private void writeBlock(final BlockType blockType,
@@ -104,6 +104,24 @@ public class PcapngOutput implements IPcapOutput {
     }
     s += 4;
     return s;
+  }
+
+  /**
+   * Returns the total length, in bytes, required by options.
+   *
+   * @param options
+   * @return
+   */
+  private static int lengthOfOptions(final List<Option> options) {
+    if ( options == null || options.isEmpty() )
+      return 0;
+
+    int totalSize = 4; // Start with 4 bytes for the terminating sentinel
+
+    for ( Option o: options )
+      totalSize += o.size();
+
+    return totalSize;
   }
 
   private static void writeOptions(final ByteBuffer bb,
@@ -175,13 +193,32 @@ public class PcapngOutput implements IPcapOutput {
     writeBlock(BlockType.ENHANCED_PACKET_BLOCK, bb);
   }
 
-  private void writeSectionHeaderBlock() throws IOException {
-    ByteBuffer bb = ByteBuffer.allocateDirect(16);
+  /**
+   * Writes a section header block.
+   *
+   * @param hardware
+   * @param osName
+   * @param applicationName
+   * @throws IOException
+   */
+  public void writeSectionHeaderBlock(final String hardware,
+                                      final String osName,
+                                      final String applicationName) throws IOException {
+    List<Option> options = new ArrayList<>();
+    if ( hardware != null )
+      options.add(new Option(OptionType.SHB_HARDWARE.code(), hardware.getBytes()));
+    if ( osName != null )
+      options.add(new Option(OptionType.SHB_OS.code(), osName.getBytes()));
+    if ( applicationName != null )
+      options.add(new Option(OptionType.SHB_USERAPPL.code(), applicationName.getBytes()));
+    ByteBuffer bb = ByteBuffer.allocateDirect(16 + lengthOfOptions(options));
     bb.putInt(PcapngInputNio.BYTE_ORDER_MAGIC);
     bb.putShort((short) Pcap.PCAPNG_VERSION_MAJOR);
     bb.putShort((short) Pcap.PCAPNG_VERSION_MINOR);
     bb.putLong(0xFFFFFFFFFFFFFFFFl);
+    writeOptions(bb, options);
     bb.flip();
+
     writeBlock(BlockType.SECTION_HEADER_BLOCK, bb);
   }
 

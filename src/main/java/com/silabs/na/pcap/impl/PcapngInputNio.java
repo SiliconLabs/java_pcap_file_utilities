@@ -27,7 +27,6 @@ import java.util.List;
 
 import com.silabs.na.pcap.Block;
 import com.silabs.na.pcap.BlockType;
-import com.silabs.na.pcap.ByteArrayUtil;
 import com.silabs.na.pcap.IPcapInput;
 import com.silabs.na.pcap.InterfaceDescriptionBlock;
 import com.silabs.na.pcap.InterfaceStatisticsBlock;
@@ -37,6 +36,8 @@ import com.silabs.na.pcap.OptionType;
 import com.silabs.na.pcap.OtherBlock;
 import com.silabs.na.pcap.PacketBlock;
 import com.silabs.na.pcap.SectionHeaderBlock;
+import com.silabs.na.pcap.util.BufferUtil;
+import com.silabs.na.pcap.util.ByteArrayUtil;
 
 /**
  * PCAP NG format: https://github.com/pcapng/pcapng/
