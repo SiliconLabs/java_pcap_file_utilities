@@ -48,9 +48,8 @@ public class PcapngOutput implements IPcapOutput {
   /**
    * Creates the output stream for the pcapng.
    *
-   * @param f
-   *            File to write into.
-   * @throws IOException
+   * @param f File to write into.
+   * @throws IOException in case of failures with underlying operations.
    */
   public PcapngOutput(final File f) throws IOException {
     channel = FileChannel.open(f.toPath(),
@@ -87,26 +86,6 @@ public class PcapngOutput implements IPcapOutput {
   }
 
   /**
-   * Returns the length of the binary data inside the pcap file for these
-   * options, includes the terminating 0 option.
-   *
-   * @param o
-   * @return
-   */
-  private static int optionsSize(final List<Option> options) {
-    int s = 0;
-    if (options == null)
-      return 0;
-    for (Option o : options) {
-      s += 4;
-      s += o.value().length;
-      s += BufferUtil.paddingLength(o.value().length, 4);
-    }
-    s += 4;
-    return s;
-  }
-
-  /**
    * Returns the total length, in bytes, required by options.
    *
    * @param options
@@ -139,9 +118,9 @@ public class PcapngOutput implements IPcapOutput {
    * Writes an interface description block. You MUST write one of those before
    * you write enhanced packet block.
    *
-   * @param linkType
-   * @param timestampResolution
-   * @throws IOException
+   * @param linkType Link type for the block.
+   * @param timestampResolution Timestamp resolution for the block. See Pcap.RESOLUTION_* constants.
+   * @throws IOException in case of errors with underlying IO operations
    */
   @Override
   public void writeInterfaceDescriptionBlock(final LinkType linkType,
@@ -156,7 +135,7 @@ public class PcapngOutput implements IPcapOutput {
       resol[0] = (byte) timestampResolution;
       options.add(new Option(OptionType.IF_TSRESOL.code(), resol));
     }
-    size += optionsSize(options);
+    size += lengthOfOptions(options);
     ByteBuffer bb = ByteBuffer.allocateDirect(size);
     bb.putShort((short) linkType.code()); // Link type
     bb.putShort((short) 0); // reserved
@@ -196,10 +175,10 @@ public class PcapngOutput implements IPcapOutput {
   /**
    * Writes a section header block.
    *
-   * @param hardware
-   * @param osName
-   * @param applicationName
-   * @throws IOException
+   * @param hardware String describing hardware used for creating this file.
+   * @param osName String describing operating system used in creation of this file.
+   * @param applicationName Name of the application creating the PCAPNG file.
+   * @throws IOException in case of underlying IO exceptions.
    */
   public void writeSectionHeaderBlock(final String hardware,
                                       final String osName,

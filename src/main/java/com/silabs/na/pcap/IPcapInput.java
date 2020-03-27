@@ -31,14 +31,15 @@ public interface IPcapInput extends Closeable {
   /**
    * Returns the type of the file.
    *
-   * @return
+   * @return type of the file.
    */
   public String type();
 
   /**
    * Returns the next packet block.
    *
-   * @return
+   * @throws IOException if anything went wrong with underlying IO operations.
+   * @return next packet block in the file, or null if there is no more.
    */
   public Block nextBlock() throws IOException;
 }

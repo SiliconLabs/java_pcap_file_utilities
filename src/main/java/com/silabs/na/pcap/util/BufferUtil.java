@@ -36,9 +36,9 @@ public class BufferUtil {
   /**
    * Calculates the padding bytes to a given byte boundary.
    *
-   * @param dataLength
-   * @param byteBoundary
-   * @return
+   * @param dataLength Length of the data.
+   * @param byteBoundary Byte boundary.
+   * @return the number of bytes that should be added to the padding.
    */
   public static int paddingLength(final int dataLength, final int byteBoundary) {
     int rem = (dataLength % byteBoundary);
@@ -53,11 +53,11 @@ public class BufferUtil {
    * it's endianess. Buffer will be cleared and flipped along the way, so don't
    * expect any data to be preserved in it.
    *
-   * @param rbc
-   * @param buffer
-   * @param n
-   * @return
-   * @throws IOException
+   * @param rbc Byte channel for reading.
+   * @param buffer The temporary buffer used for the operation.
+   * @param n Number of bytes that make up the int.
+   * @return Integer value of the read buffer.
+   * @throws IOException if something fails with underlying IO operations.
    */
   public static int readNByteIntFromChannel(final ReadableByteChannel rbc,
                                             final ByteBuffer buffer,
@@ -75,11 +75,11 @@ public class BufferUtil {
   /**
    * Read buffers from channel into a byte buffer.
    *
-   * @param rbc
-   * @param buffer
-   * @param length
-   * @return
-   * @throws IOException
+   * @param rbc Byte channel for reading.
+   * @param buffer The temporary buffer used for the operation.
+   * @param length Number of bytes to read.
+   * @return Bytes that were read.
+   * @throws IOException if something fails with underlying IO operations.
    */
   public static byte[] readBytesFromChannel(final ReadableByteChannel rbc,
                                             final ByteBuffer buffer,
@@ -108,9 +108,9 @@ public class BufferUtil {
   /**
    * Reads a N byte integer from buffer and return it.
    *
-   * @param buffer
-   * @param n
-   * @return
+   * @param buffer Buffer from which to read bytes.
+   * @param n Number of bytes that make up an integer.
+   * @return Integer value.
    */
   public static int readNByteIntFromBuffer(final ByteBuffer buffer, final int n) {
     byte[] bytes = new byte[n];

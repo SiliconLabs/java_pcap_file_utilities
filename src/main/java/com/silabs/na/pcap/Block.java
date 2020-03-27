@@ -41,13 +41,22 @@ public class Block {
   }
 
   /**
-   * Create a block from a given object type.
+   * Create a block of a given type.
+   *
+   * @param type A block type for this block.
+   * @param o Data of a given type.
+   * @param options Options list that should be appended to the block. May be null or empty.
    */
-  public Block(final BlockType type, final Class<?> objectType, final Object o,
+  public Block(final BlockType type, final Object o,
       final List<Option> options) {
-    this(type, options, objectType, o);
+    this(type, options, o.getClass(), o);
   }
 
+  /**
+   * Returns an array of options that are attached to this block.
+   *
+   * @return Returns an array of options. May be empty array. Does not return null.
+   */
   public Option[] options() {
     if (options == null)
       return new Option[0];
@@ -55,14 +64,29 @@ public class Block {
       return options.toArray(new Option[options.size()]);
   }
 
+  /**
+   * Returns the type of the block.
+   * @return block type
+   */
   public BlockType type() {
     return type;
   }
 
+  /**
+   * Returns true if this block contains a data of a given type.
+   *
+   * @param dataType Class of data that you're querying for.
+   * @return True if the class contains the specified class type of data.
+   */
   public boolean containsDataOfType(final Class<?> dataType) {
     return objectType == dataType;
   }
 
+  /**
+   * Returns the data object.
+   *
+   * @return data object.
+   */
   public Object data() {
     return data;
   }

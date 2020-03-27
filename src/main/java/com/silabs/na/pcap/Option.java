@@ -26,27 +26,33 @@ import com.silabs.na.pcap.util.BufferUtil;
  * @author Timotej Ecimovic
  */
 public class Option {
-  private final int type;
+  private final int code;
   private final byte[] value;
 
-  public Option(final int type, final byte[] value) {
-    this.type = type;
+  /**
+   * Creates an option with given type and value.
+   *
+   * @param code Code of option.
+   * @param value Value of option.
+   */
+  public Option(final int code, final byte[] value) {
+    this.code = code;
     this.value = value;
   }
 
   /**
    * Returns the code of option.
    *
-   * @return
+   * @return code of option.
    */
   public int code() {
-    return type;
+    return code;
   }
 
   /**
    * Returns the value of option.
    *
-   * @return
+   * @return value of option.
    */
   public byte[] value() {
     return value;
@@ -57,7 +63,7 @@ public class Option {
    * The size includes the entire length including 2 byte code,
    * 2 byte length and padding.
    *
-   * @return
+   * @return Total option size in bytes.
    */
   public int size() {
     return 4 + value.length + BufferUtil.paddingLength(value.length, 4);

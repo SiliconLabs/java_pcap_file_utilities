@@ -67,7 +67,7 @@ public class PcapngInputNio implements IPcapInput {
   /**
    * Is is 4 bytes into it.
    *
-   * @param is
+   * @param rbc Byte channel to read input from.
    */
   public PcapngInputNio(final ReadableByteChannel rbc) {
     this.rbc = rbc;
@@ -139,7 +139,7 @@ public class PcapngInputNio implements IPcapInput {
     SectionHeaderBlock shb = new SectionHeaderBlock(bigEndian, major, minor,
                                                     sectionLength);
 
-    return new Block(BlockType.SECTION_HEADER_BLOCK, shb.getClass(), shb, opts);
+    return new Block(BlockType.SECTION_HEADER_BLOCK, shb, opts);
   }
 
   private List<Option> readOptions(final int expectedLen) throws IOException {
@@ -182,7 +182,7 @@ public class PcapngInputNio implements IPcapInput {
       body = new byte[0];
     }
     OtherBlock ob = new OtherBlock(body);
-    return new Block(BlockType.resolve(typeCode), ob.getClass(), ob, null);
+    return new Block(BlockType.resolve(typeCode), ob, null);
   }
 
   private Block nextInterfaceStatisticsBlock(final int totLen) throws IOException {
@@ -198,8 +198,7 @@ public class PcapngInputNio implements IPcapInput {
 
     InterfaceStatisticsBlock isb = new InterfaceStatisticsBlock(interfaceId,
                                                                 timestamp);
-    return new Block(BlockType.INTERFACE_STATISTICS_BLOCK, isb.getClass(), isb,
-                     opts);
+    return new Block(BlockType.INTERFACE_STATISTICS_BLOCK, isb, opts);
 
   }
 
@@ -229,8 +228,7 @@ public class PcapngInputNio implements IPcapInput {
 
     InterfaceDescriptionBlock idb = new InterfaceDescriptionBlock(LinkType
         .resolve(linkType), snapLen);
-    return new Block(BlockType.INTERFACE_DESCRIPTION_BLOCK, idb.getClass(), idb,
-                     opts);
+    return new Block(BlockType.INTERFACE_DESCRIPTION_BLOCK, idb, opts);
   }
 
   private long calculateNanoseconds(final byte[] timeHighLow) {
@@ -276,7 +274,7 @@ public class PcapngInputNio implements IPcapInput {
       actualData = data;
     }
     PacketBlock pb = new PacketBlock(Long.MIN_VALUE, actualData);
-    return new Block(BlockType.SIMPLE_PACKET_BLOCK, pb.getClass(), pb, null);
+    return new Block(BlockType.SIMPLE_PACKET_BLOCK, pb, null);
   }
 
   private Block nextEnhancedPacketBlock(final int totLen) throws IOException {
@@ -309,10 +307,15 @@ public class PcapngInputNio implements IPcapInput {
     long ns = calculateNanoseconds(timeHighLow);
 
     PacketBlock pb = new PacketBlock(ns, data);
-    return new Block(BlockType.ENHANCED_PACKET_BLOCK, pb.getClass(), pb, opts);
+    return new Block(BlockType.ENHANCED_PACKET_BLOCK, pb, opts);
 
   }
 
+  /**
+   * Returns the next block or null if none is present.
+   *
+   * @return Next block or null.
+   */
   @Override
   public Block nextBlock() throws IOException {
     int typeCode;

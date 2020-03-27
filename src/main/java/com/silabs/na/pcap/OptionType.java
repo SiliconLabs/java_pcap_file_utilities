@@ -95,12 +95,16 @@ public enum OptionType {
   /**
    * Length, of -1 for variable.
    *
-   * @return
+   * @return length
    */
   public int length() {
     return length;
   }
 
+  /**
+   * Block type.
+   * @return block type
+   */
   public BlockType blockType() {
     return type;
   }
@@ -108,9 +112,9 @@ public enum OptionType {
   /**
    * Returns the option type, or UNKNOWN.
    *
-   * @param b
-   * @param code
-   * @return
+   * @param b Block type to look up options for.
+   * @param code Option code.
+   * @return Option type if one was found, or UNKNOWN othwewise. Does not return null.
    */
   public static OptionType lookup(final BlockType b, final int code) {
     for (OptionType ot : globalOptionTypes) {

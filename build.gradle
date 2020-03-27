@@ -18,7 +18,7 @@ test {
 
 jar {
     archiveBaseName = 'java-pcap'
-    version = '0.99.3'
+    version = '0.99.4'
     manifest {
         attributes(
             'Built-By'       : System.properties['user.name'],
@@ -29,4 +29,8 @@ jar {
 	    'Main-Class'     : 'com.silabs.na.pcap.Main'
         )
     }
+}
+
+javadoc {
+    destinationDir = file('docs/javadoc/')
 }

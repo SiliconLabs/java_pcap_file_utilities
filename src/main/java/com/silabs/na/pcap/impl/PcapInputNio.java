@@ -50,7 +50,14 @@ public class PcapInputNio implements IPcapInput {
   private final ReadableByteChannel rbc;
   private final ByteBuffer buffer;
 
-  // Starts the pcap stream, with the is rolled up at 4 bytes into it.
+  /**
+   * Starts the pcap stream, with the is rolled up at 4 bytes into it.
+   *
+   * @param rbc Byte channel that contains data.
+   * @param isBigEndian Specifies the endianess of the file.
+   * @param isNanosec Specify if timestamps are micro- or nano-seconds.
+   * @throws IOException if anything goes wrong with the IO operations.
+   */
   public PcapInputNio(final ReadableByteChannel rbc, final boolean isBigEndian,
       final boolean isNanosec) throws IOException {
     this.rbc = rbc;
@@ -88,8 +95,8 @@ public class PcapInputNio implements IPcapInput {
   /**
    * Returns next packet block, or null when at the end of the file.
    *
-   * @return
-   * @throws IOException
+   * @return next block read from the input.
+   * @throws IOException if anything goes wrong with the underlying IO operations.
    */
   @Override
   public Block nextBlock() throws IOException {
@@ -126,7 +133,7 @@ public class PcapInputNio implements IPcapInput {
       t = sec * 1000000000 + usec * 1000;
     }
     PacketBlock pb = new PacketBlock(t, data);
-    return new Block(BlockType.PACKET_BLOCK, pb.getClass(), pb, null);
+    return new Block(BlockType.PACKET_BLOCK, pb, null);
   }
 
   @Override

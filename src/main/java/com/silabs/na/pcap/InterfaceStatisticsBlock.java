@@ -33,10 +33,19 @@ public class InterfaceStatisticsBlock {
     this.timestamp = timestamp;
   }
 
+  /**
+   * Returns the interface ID that this block contains statistics for.
+   * @return interface id
+   */
   public int interfaceId() {
     return interfaceId;
   }
 
+  /**
+   * Returns the timestamp of the statistics block.
+   *
+   * @return timestamp
+   */
   public long timestamp() {
     return timestamp;
   }

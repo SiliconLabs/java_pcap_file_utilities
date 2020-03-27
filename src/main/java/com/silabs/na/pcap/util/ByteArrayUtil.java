@@ -31,6 +31,13 @@ public class ByteArrayUtil {
   private ByteArrayUtil() {
   }
 
+  /**
+   * Formats a byte array with possible spaces between bytes.
+   *
+   * @param raw Byte array to format.
+   * @param useSpace flag to specify if space should be present between each byte.
+   * @return Byte array formatted as a String.
+   */
   public static String formatByteArray(final byte[] raw,
                                        final boolean useSpace) {
     if (raw == null)
@@ -40,12 +47,23 @@ public class ByteArrayUtil {
 
   /**
    * Simple formatting of byte array into a "ab cd ef" kind of a string
+   * @param raw Byte array to format.
+   * @return Byte array formatted as a String.
    */
   public static String formatByteArray(final byte[] raw) {
     return formatByteArray(raw, true);
   }
 
-  // Formats byte array and returns it as string.
+  /**
+   * Formats a byte array into a string.
+   *
+   * @param raw Byte array to format.
+   * @param start Start index into raw byte.
+   * @param length Number of bytes to use from start index.
+   * @param useSpace If true, then put space characted between bytes.
+   * @param upperCase If true, then hex values are in uppercase, otherwise lowercase.
+   * @return Formatted byte array.
+   */
   public static String formatByteArray(final byte[] raw,
                                        final int start,
                                        final int length,
@@ -111,7 +129,12 @@ public class ByteArrayUtil {
    * at most 4. When the length is 4 bytes, is there a way to make sure this an
    * unsigned integer without using a long?
    *
-   * @throws ArrayIndexOutOfBoundsException
+   * @param raw Byte array to read into integer.
+   * @param offset Start index for reading.
+   * @param length How many bytes to read.
+   * @param bigEndian True if the laid out integer is in big-endian format.
+   * @return Integer value
+   * @throws ArrayIndexOutOfBoundsException if specified offset and length don't fit into the array.
    */
   public static int byteArrayToInt(final byte[] raw,
                                    final int offset,
@@ -131,9 +154,11 @@ public class ByteArrayUtil {
    * Takes a long and lays it out into a destination array in big- or
    * little-endian format. It will use 8 bytes of the array.
    *
-   * @throws ArrayIndexOutOfBoundsException
-   *                                          if there is not enough space.
-   * @returns void
+   * @param value Long value to convert.
+   * @param dest Destination byte array. Should be at least 8 long.
+   * @param offset Offset into the byte array where the value should be put.
+   * @param bigEndian True if the bytes should be laid out in big endian order.
+   * @throws ArrayIndexOutOfBoundsException if there is not enough space.
    */
   public static void longToByteArray(final long value,
                                      final byte[] dest,
@@ -150,7 +175,12 @@ public class ByteArrayUtil {
   /**
    * Converts an array of bytes into a long. The length should be at most 8.
    *
-   * @throws ArrayIndexOutOfBoundsException
+   * @param raw Byte array for input.
+   * @param offset Index into the byte array where reading should start.
+   * @param length How many bytes to read.
+   * @param bigEndian If true, the big-endian byte order is assumed.
+   * @return long value
+   * @throws ArrayIndexOutOfBoundsException if something is wrong with indexes.
    */
   public static long byteArrayToLong(final byte[] raw,
                                      final int offset,

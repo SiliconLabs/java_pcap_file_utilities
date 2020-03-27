@@ -30,9 +30,10 @@ public interface IPcapOutput extends Closeable {
   /**
    * Writes the enhanced packet block.
    *
-   * @param interfaceId
-   * @param nanoseconds
-   * @param data
+   * @param interfaceId Id of the interface for the enhanced packet block.
+   * @param timestamp Timestamp in nanoseconds.
+   * @param data Payload for the output.
+   * @throws IOException in case of errors with underlying IO operations.
    */
   public void writeEnhancedPacketBlock(int interfaceId,
                                        long timestamp,
@@ -46,9 +47,9 @@ public interface IPcapOutput extends Closeable {
    * Consequently, you are NOT allowed to call writeEnhancedPacketBlock without
    * previously calling writeInterfaceDescriptionBlock().
    *
-   * @param linkType
-   * @param timestampResolution
-   * @throws IOException
+   * @param linkType Link type for the data from this interface.
+   * @param timestampResolution See Pcap.RESOLUTION constants.
+   * @throws IOException in case of errors with underlying IO operations.
    */
   public void writeInterfaceDescriptionBlock(final LinkType linkType,
                                              final int timestampResolution) throws IOException;

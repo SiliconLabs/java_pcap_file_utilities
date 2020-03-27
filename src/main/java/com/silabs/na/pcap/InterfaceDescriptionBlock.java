@@ -38,10 +38,21 @@ public class InterfaceDescriptionBlock {
     return "IDB: linkType=" + linkType + ", snapLen = " + snapLen;
   }
 
+  /**
+   * Returns the link type in this block.
+   *
+   * @return link type
+   */
   public LinkType linkType() {
     return linkType;
   }
 
+  /**
+   * Returns the maximum number of bytes dumped from each packet.
+   * The portion of each packet that exceeds this value will not be stored in the file.
+   *
+   * @return max length of packets.
+   */
   public int snapLen() {
     return snapLen;
   }

@@ -30,6 +30,12 @@ public class PacketBlock {
   private final long nanoseconds;
   private final byte[] data;
 
+  /**
+   * Creates a new packet block with given timestamp and data.
+   *
+   * @param nanoseconds Timestamp.
+   * @param data Data inside this packet.
+   */
   public PacketBlock(final long nanoseconds, final byte[] data) {
     this.nanoseconds = nanoseconds;
     this.data = data;
@@ -41,6 +47,10 @@ public class PacketBlock {
         .format("%d ns: %s", nanoseconds, ByteArrayUtil.formatByteArray(data));
   }
 
+  /**
+   * Byte array that contain the payload of this packet.
+   * @return byte array
+   */
   public byte[] data() {
     return data;
   }
@@ -50,7 +60,7 @@ public class PacketBlock {
    * Lang.MIN_VALUE in case of simple packet block which does not contain
    * timestamp.
    *
-   * @return
+   * @return nanoseconds
    */
   public long nanoseconds() {
     return nanoseconds;
