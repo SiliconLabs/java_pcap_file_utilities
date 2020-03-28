@@ -33,4 +33,7 @@ jar {
 
 javadoc {
     destinationDir = file('docs/javadoc/')
+    options {
+        noTimestamp = true
+    }
 }
