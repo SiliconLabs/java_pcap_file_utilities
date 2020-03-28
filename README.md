@@ -51,6 +51,10 @@ in a unit test under:
 
 `src/test/java/com/silabs.pcap/PcapTest.java`
 
+# Documentation
+
+  * [Javadoc](https://siliconlabs.github.io/java_pcap_file_utilities/javadoc/index.html)
+
 # References
 
   * [Description of the PCAP format](https://wiki.wireshark.org/Development/LibpcapFileFormat)
