@@ -30,6 +30,13 @@ public class SectionHeaderBlock {
   private final int minor;
   private final int sectionLength;
 
+  /**
+   * Creates a section header block with a given values.
+   * @param bigEndian If true, then this section is big endian.
+   * @param major Major version of the PCAPNG format used.
+   * @param minor Minor version of a PCAPNG format used.
+   * @param sectionLength Length of a section, in bytes. May be -1, "indicating unspecified".
+   */
   public SectionHeaderBlock(final boolean bigEndian, final int major,
       final int minor, final int sectionLength) {
     this.bigEndian = bigEndian;
@@ -44,18 +51,36 @@ public class SectionHeaderBlock {
         + sectionLength + "," + (bigEndian ? "big endian" : "little endian");
   }
 
+  /**
+   * Major version of the PCAPNG format used.
+   * @return major version
+   */
   public int majorVersion() {
     return major;
   }
 
+  /**
+   * Minor version of the PCAPNG format used.
+   * @return minor version
+   */
   public int minorVersion() {
     return minor;
   }
 
+  /**
+   * Returns the information on endiannes of this section.
+   *
+   * @return true, if this section is big endian, false if little-endian
+   */
   public boolean isBigEndian() {
     return bigEndian;
   }
 
+  /**
+   * Returns the information on endiannes of this section.
+   *
+   * @return true, if this section is little endian, false if big endian
+   */
   public boolean isLittleEndian() {
     return !bigEndian;
   }

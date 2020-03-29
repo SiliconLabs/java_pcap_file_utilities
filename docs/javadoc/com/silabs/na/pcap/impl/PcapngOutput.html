@@ -185,7 +185,9 @@ implements <a href="../IPcapOutput.html" title="interface in com.silabs.na.pcap"
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#close()">close</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Closes the output stream.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
@@ -193,7 +195,7 @@ implements <a href="../IPcapOutput.html" title="interface in com.silabs.na.pcap"
                         long&nbsp;timestamp,
                         byte[]&nbsp;data)</code></th>
 <td class="colLast">
-<div class="block">Writes the enhanced packet block.</div>
+<div class="block">Writes enhanced packet block.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -296,15 +298,15 @@ implements <a href="../IPcapOutput.html" title="interface in com.silabs.na.pcap"
                                      long&nbsp;timestamp,
                                      byte[]&nbsp;data)
                               throws java.io.IOException</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../IPcapOutput.html#writeEnhancedPacketBlock(int,long,byte%5B%5D)">IPcapOutput</a></code></span></div>
-<div class="block">Writes the enhanced packet block.</div>
+<div class="block">Writes enhanced packet block.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../IPcapOutput.html#writeEnhancedPacketBlock(int,long,byte%5B%5D)">writeEnhancedPacketBlock</a></code>&nbsp;in interface&nbsp;<code><a href="../IPcapOutput.html" title="interface in com.silabs.na.pcap">IPcapOutput</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>interfaceId</code> - Id of the interface for the enhanced packet block.</dd>
+<dd><code>interfaceId</code> - Interface id of this packet. The interface description block with a given interface id
+ had to exist earlier in the file.</dd>
 <dd><code>timestamp</code> - Timestamp in nanoseconds.</dd>
-<dd><code>data</code> - Payload for the output.</dd>
+<dd><code>data</code> - Payload of the packet.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code>java.io.IOException</code> - in case of errors with underlying IO operations.</dd>
 </dl>
@@ -339,6 +341,7 @@ implements <a href="../IPcapOutput.html" title="interface in com.silabs.na.pcap"
 <h4>close</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;close()
            throws java.io.IOException</pre>
+<div class="block">Closes the output stream.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>close</code>&nbsp;in interface&nbsp;<code>java.lang.AutoCloseable</code></dd>

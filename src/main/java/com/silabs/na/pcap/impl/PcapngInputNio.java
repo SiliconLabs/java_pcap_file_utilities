@@ -74,11 +74,19 @@ public class PcapngInputNio implements IPcapInput {
     this.hasJustStarted = true;
   }
 
+  /**
+   * Returns type of the file. In this case: "pcapng"
+   *
+   * @return "pcapng"
+   */
   @Override
   public String type() {
     return "pcapng";
   }
 
+  /**
+   * Closes the input stream.
+   */
   @Override
   public void close() throws IOException {
     rbc.close();

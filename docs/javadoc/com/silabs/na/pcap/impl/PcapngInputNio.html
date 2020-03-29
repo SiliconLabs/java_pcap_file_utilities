@@ -190,7 +190,9 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#close()">close</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Closes the input stream.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="../Block.html" title="class in com.silabs.na.pcap">Block</a></code></td>
@@ -203,7 +205,7 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#type()">type</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Returns the type of the file.</div>
+<div class="block">Returns type of the file.</div>
 </td>
 </tr>
 </table>
@@ -261,13 +263,12 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <li class="blockList">
 <h4>type</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;type()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../IPcapInput.html#type()">IPcapInput</a></code></span></div>
-<div class="block">Returns the type of the file.</div>
+<div class="block">Returns type of the file. In this case: "pcapng"</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../IPcapInput.html#type()">type</a></code>&nbsp;in interface&nbsp;<code><a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">IPcapInput</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>type of the file.</dd>
+<dd>"pcapng"</dd>
 </dl>
 </li>
 </ul>
@@ -279,6 +280,7 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <h4>close</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;close()
            throws java.io.IOException</pre>
+<div class="block">Closes the input stream.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>close</code>&nbsp;in interface&nbsp;<code>java.lang.AutoCloseable</code></dd>

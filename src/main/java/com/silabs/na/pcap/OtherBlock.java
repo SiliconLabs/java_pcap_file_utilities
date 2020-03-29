@@ -27,10 +27,19 @@ public class OtherBlock {
 
   private final byte[] body;
 
+  /**
+   * Create a block with a given payload.
+   *
+   * @param body Payload for the block.
+   */
   public OtherBlock(final byte[] body) {
     this.body = body;
   }
 
+  /**
+   * Returns a binary content of this block, without any further breakdown.
+   * @return block payload as a byte array.
+   */
   public byte[] body() {
     return body;
   }

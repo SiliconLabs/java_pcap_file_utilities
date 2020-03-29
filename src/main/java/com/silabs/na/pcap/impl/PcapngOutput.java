@@ -147,6 +147,14 @@ public class PcapngOutput implements IPcapOutput {
     writeBlock(BlockType.INTERFACE_DESCRIPTION_BLOCK, bb);
   }
 
+  /**
+   * Writes enhanced packet block.
+   *
+   * @param interfaceId Interface id of this packet. The interface description block with a given interface id
+   * had to exist earlier in the file.
+   * @param timestamp Timestamp in nanoseconds.
+   * @param data Payload of the packet.
+   */
   @Override
   public void writeEnhancedPacketBlock(final int interfaceId,
                                        final long timestamp,
@@ -201,6 +209,9 @@ public class PcapngOutput implements IPcapOutput {
     writeBlock(BlockType.SECTION_HEADER_BLOCK, bb);
   }
 
+  /**
+   * Closes the output stream.
+   */
   @Override
   public void close() throws IOException {
     channel.close();

@@ -216,12 +216,16 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#close()">close</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Closes the streams.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#network()">network</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the network ID.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="../Block.html" title="class in com.silabs.na.pcap">Block</a></code></td>
@@ -233,19 +237,23 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#snapLen()">snapLen</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">SNAP len, defining max length of the packet.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#type()">type</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Returns the type of the file.</div>
+<div class="block">Returns type of the file.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#version()">version</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns version string of this PCAP file.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -345,6 +353,11 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <li class="blockList">
 <h4>version</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;version()</pre>
+<div class="block">Returns version string of this PCAP file.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>String, represeting the version.</dd>
+</dl>
 </li>
 </ul>
 <a id="network()">
@@ -354,6 +367,11 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <li class="blockList">
 <h4>network</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;network()</pre>
+<div class="block">Returns the network ID.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>int, representing network.</dd>
+</dl>
 </li>
 </ul>
 <a id="snapLen()">
@@ -363,6 +381,11 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <li class="blockList">
 <h4>snapLen</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;snapLen()</pre>
+<div class="block">SNAP len, defining max length of the packet.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>value of SNAP len</dd>
+</dl>
 </li>
 </ul>
 <a id="nextBlock()">
@@ -391,13 +414,12 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <li class="blockList">
 <h4>type</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;type()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../IPcapInput.html#type()">IPcapInput</a></code></span></div>
-<div class="block">Returns the type of the file.</div>
+<div class="block">Returns type of the file. In this case, "pcap".</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../IPcapInput.html#type()">type</a></code>&nbsp;in interface&nbsp;<code><a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">IPcapInput</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>type of the file.</dd>
+<dd>"pcap"</dd>
 </dl>
 </li>
 </ul>
@@ -409,6 +431,7 @@ implements <a href="../IPcapInput.html" title="interface in com.silabs.na.pcap">
 <h4>close</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;close()
            throws java.io.IOException</pre>
+<div class="block">Closes the streams.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>close</code>&nbsp;in interface&nbsp;<code>java.lang.AutoCloseable</code></dd>

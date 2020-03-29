@@ -80,14 +80,28 @@ public class PcapInputNio implements IPcapInput {
     this.network = BufferUtil.readNByteIntFromBuffer(buffer, 4);
   }
 
+  /**
+   * Returns version string of this PCAP file.
+   *
+   * @return String, represeting the version.
+   */
   public String version() {
     return majorVersion + "." + minorVersion;
   }
 
+  /**
+   * Returns the network ID.
+   * @return int, representing network.
+   */
   public int network() {
     return network;
   }
 
+  /**
+   * SNAP len, defining max length of the packet.
+   *
+   * @return value of SNAP len
+   */
   public int snapLen() {
     return snaplen;
   }
@@ -136,11 +150,18 @@ public class PcapInputNio implements IPcapInput {
     return new Block(BlockType.PACKET_BLOCK, pb, null);
   }
 
+  /**
+   * Returns type of the file. In this case, "pcap".
+   * @return "pcap"
+   */
   @Override
   public String type() {
     return "pcap";
   }
 
+  /**
+   * Closes the streams.
+   */
   @Override
   public void close() throws IOException {
     rbc.close();

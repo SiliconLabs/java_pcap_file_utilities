@@ -27,7 +27,10 @@ import java.util.Map;
 import com.silabs.na.pcap.util.ByteArrayUtil;
 
 /**
- * Main class for the CLI interface.
+ * Main class for the CLI interface. The only purpose of this class
+ * is to provide an interface to a command line usage of a jar file.
+ *
+ * There is no other useful API here.
  *
  * @author Timotej Ecimovic
  */
@@ -133,6 +136,12 @@ public class Main {
     }
   }
 
+  /**
+   * Logic that gets executed on a file when the "dump" command is used.
+   *
+   * @param path String path of the file to open.
+   * @throws IOException when underlying IO operation fails.
+   */
   public void dumpFile(final String path) throws IOException {
     File f = new File(path);
     try (IPcapInput in = Pcap.openForReading(f)) {
@@ -174,6 +183,11 @@ public class Main {
     }
   }
 
+  /**
+   * Execution entry point.
+   *
+   * @param args Command line arguments.
+   */
   public static void main(final String[] args) {
     Main m = new Main(System.out);
     m.run(args);

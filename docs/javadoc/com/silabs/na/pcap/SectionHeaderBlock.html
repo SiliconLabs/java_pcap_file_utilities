@@ -158,7 +158,9 @@ extends java.lang.Object</pre>
                   int&nbsp;major,
                   int&nbsp;minor,
                   int&nbsp;sectionLength)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Creates a section header block with a given values.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -181,22 +183,30 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isBigEndian()">isBigEndian</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the information on endiannes of this section.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isLittleEndian()">isLittleEndian</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the information on endiannes of this section.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#majorVersion()">majorVersion</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Major version of the PCAPNG format used.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#minorVersion()">minorVersion</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Minor version of the PCAPNG format used.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
@@ -237,6 +247,14 @@ extends java.lang.Object</pre>
                           int&nbsp;major,
                           int&nbsp;minor,
                           int&nbsp;sectionLength)</pre>
+<div class="block">Creates a section header block with a given values.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>bigEndian</code> - If true, then this section is big endian.</dd>
+<dd><code>major</code> - Major version of the PCAPNG format used.</dd>
+<dd><code>minor</code> - Minor version of a PCAPNG format used.</dd>
+<dd><code>sectionLength</code> - Length of a section, in bytes. May be -1, "indicating unspecified".</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -269,6 +287,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>majorVersion</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;majorVersion()</pre>
+<div class="block">Major version of the PCAPNG format used.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>major version</dd>
+</dl>
 </li>
 </ul>
 <a id="minorVersion()">
@@ -278,6 +301,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>minorVersion</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;minorVersion()</pre>
+<div class="block">Minor version of the PCAPNG format used.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>minor version</dd>
+</dl>
 </li>
 </ul>
 <a id="isBigEndian()">
@@ -287,6 +315,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>isBigEndian</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;isBigEndian()</pre>
+<div class="block">Returns the information on endiannes of this section.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true, if this section is big endian, false if little-endian</dd>
+</dl>
 </li>
 </ul>
 <a id="isLittleEndian()">
@@ -296,6 +329,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>isLittleEndian</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;isLittleEndian()</pre>
+<div class="block">Returns the information on endiannes of this section.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true, if this section is little endian, false if big endian</dd>
+</dl>
 </li>
 </ul>
 </li>

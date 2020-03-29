@@ -634,12 +634,16 @@ extends java.lang.Enum&lt;<a href="LinkType.html" title="enum in com.silabs.na.p
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#code()">code</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the code as defined by the spec for this type.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static <a href="LinkType.html" title="enum in com.silabs.na.pcap">LinkType</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resolve(int)">resolve</a></span>&#8203;(int&nbsp;code)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Given a code, returns the enum value that matches it.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>static <a href="LinkType.html" title="enum in com.silabs.na.pcap">LinkType</a></code></td>
@@ -1754,6 +1758,11 @@ not permitted.)</div>
 <li class="blockList">
 <h4>code</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;code()</pre>
+<div class="block">Returns the code as defined by the spec for this type.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Code for the type.</dd>
+</dl>
 </li>
 </ul>
 <a id="resolve(int)">
@@ -1763,6 +1772,13 @@ not permitted.)</div>
 <li class="blockList">
 <h4>resolve</h4>
 <pre class="methodSignature">public static&nbsp;<a href="LinkType.html" title="enum in com.silabs.na.pcap">LinkType</a>&nbsp;resolve&#8203;(int&nbsp;code)</pre>
+<div class="block">Given a code, returns the enum value that matches it.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>code</code> - Value to resolve.</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>Matching enum value, or UNKNOWN.</dd>
+</dl>
 </li>
 </ul>
 </li>

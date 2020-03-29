@@ -84,10 +84,20 @@ public enum OptionType {
     this.isAscii = isAscii;
   }
 
+  /**
+   * Returns true if this option is of an ASCII type.
+   *
+   * @return true if this option type is an ASCII option.
+   */
   public boolean isAscii() {
     return isAscii;
   }
 
+  /**
+   * Returns the code representing this option type, according to PCAPNG spec.
+   *
+   * @return Code.
+   */
   public int code() {
     return code;
   }

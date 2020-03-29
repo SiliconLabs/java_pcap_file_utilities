@@ -47,10 +47,21 @@ public enum BlockType {
     this.typeCode = typeCode;
   }
 
+  /**
+   * Type code nubmer as defined by the PCAPNG spec.
+   *
+   * @return Type code.
+   */
   public int typeCode() {
     return typeCode;
   }
 
+  /**
+   * Given a type code, return the enum value that matches it.
+   *
+   * @param code Integer to resolve.
+   * @return Corresponding enum value, or UNKNOWN if the number doesn't match any.
+   */
   public static BlockType resolve(final int code) {
     for (BlockType t : values()) {
       if (t.typeCode == code)

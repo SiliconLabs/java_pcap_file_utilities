@@ -146,10 +146,21 @@ public enum LinkType {
     this.code = code;
   }
 
+  /**
+   * Returns the code as defined by the spec for this type.
+   *
+   * @return Code for the type.
+   */
   public int code() {
     return code;
   }
 
+  /**
+   * Given a code, returns the enum value that matches it.
+   *
+   * @param code Value to resolve.
+   * @return Matching enum value, or UNKNOWN.
+   */
   public static LinkType resolve(final int code) {
     for (LinkType lt : values()) {
       if (code == lt.code)

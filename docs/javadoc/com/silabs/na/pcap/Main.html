@@ -133,7 +133,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Main</span>
 extends java.lang.Object</pre>
-<div class="block">Main class for the CLI interface.</div>
+<div class="block">Main class for the CLI interface. The only purpose of this class
+ is to provide an interface to a command line usage of a jar file.
+
+ There is no other useful API here.</div>
 </li>
 </ul>
 </div>
@@ -157,12 +160,16 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dumpFile(java.lang.String)">dumpFile</a></span>&#8203;(java.lang.String&nbsp;path)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Logic that gets executed on a file when the "dump" command is used.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#main(java.lang.String%5B%5D)">main</a></span>&#8203;(java.lang.String[]&nbsp;args)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Execution entry point.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -196,9 +203,12 @@ extends java.lang.Object</pre>
 <h4>dumpFile</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;dumpFile&#8203;(java.lang.String&nbsp;path)
               throws java.io.IOException</pre>
+<div class="block">Logic that gets executed on a file when the "dump" command is used.</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>path</code> - String path of the file to open.</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.io.IOException</code></dd>
+<dd><code>java.io.IOException</code> - when underlying IO operation fails.</dd>
 </dl>
 </li>
 </ul>
@@ -209,6 +219,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>main</h4>
 <pre class="methodSignature">public static&nbsp;void&nbsp;main&#8203;(java.lang.String[]&nbsp;args)</pre>
+<div class="block">Execution entry point.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>args</code> - Command line arguments.</dd>
+</dl>
 </li>
 </ul>
 </li>
