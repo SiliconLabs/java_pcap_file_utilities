@@ -28,7 +28,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: java_pcap.zip
-        path: build/libs/java-pcap-*.jar
+        path: build/libs/java-pcap-0.99.4.jar
     - name: Archive license
       uses: actions/upload-artifact@v1
       with:
