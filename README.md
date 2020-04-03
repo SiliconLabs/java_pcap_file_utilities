@@ -1,3 +1,5 @@
+![](https://github.com/SiliconLabs/java_pcap_file_utilities/workflows/Jar%20Build/badge.svg)
+
 # What is this?
 
 Java-pcap is a java implementation of PCAP and PCAPNG file format.
