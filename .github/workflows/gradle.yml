@@ -24,3 +24,8 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Upload jar file
+      uses: actions/upload-artifact@v1
+      with:
+        name: java_pcap
+        path: build/libs/java-pcap-0.99.4.jar
