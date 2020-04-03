@@ -24,8 +24,13 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Upload jar file
+    - name: Archive jar file
       uses: actions/upload-artifact@v1
       with:
-        name: java_pcap
-        path: build/libs/java-pcap-0.99.4.jar
+        name: java_pcap.zip
+        path: build/libs/java-pcap-*.jar
+    - name: Archive license
+      uses: actions/upload-artifact@v1
+      with:
+        name: java_pcap.zip
+        path: LICENSE-2.0.txt
