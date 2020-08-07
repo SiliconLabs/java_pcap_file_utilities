@@ -21,6 +21,7 @@ package com.silabs.na.pcap;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import com.silabs.na.pcap.impl.PcapInputNio;
 import com.silabs.na.pcap.impl.PcapngInputNio;
@@ -89,7 +90,19 @@ public class Pcap {
   }
 
   /**
-   * Opens a file for writing.
+   * Equivalent to openForWriting(p.toFile())
+   * 
+   * @param p Path to use
+   * @return Output object that can be used to add blocks to the file.
+   * @throws IOException from underlying IO operations.
+   */
+  public static IPcapOutput openForWriting(final Path p) throws IOException {
+    return openForWriting(p.toFile());
+  }
+
+  /**
+   * Opens a file for writing. This method will already write out the section header block that is mandatory 
+   * at the beginning of the file.
    *
    * @param f File to use.
    * @param hardware String describing hardware used for creating this file.
@@ -121,7 +134,7 @@ public class Pcap {
     byte[] magic = new byte[4];
     if (fis.read(magic) != 4) {
       fis.close();
-      throw new IOException("Insufficient data.");
+      throw new IOException("Insufficient data. Requires at least 4 byte magic number.");
     }
 
     int magicBE = ByteArrayUtil.byteArrayToInt(magic, 0, 4, true);
@@ -142,6 +155,16 @@ public class Pcap {
 
     fis.close();
     throw new IOException("Invalid PCAP file format.");
-
+  }
+  
+  /**
+   * Equivalent to openForReading(path.toFile())
+   * 
+   * @param p Path to read.
+   * @return Input object that can be used to retrieve data.
+   * @throws IOException
+   */
+  public static IPcapInput openForReading(Path p) throws IOException {
+    return openForReading(p.toFile());
   }
 }

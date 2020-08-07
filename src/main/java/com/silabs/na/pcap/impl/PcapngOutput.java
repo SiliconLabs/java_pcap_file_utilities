@@ -46,16 +46,39 @@ public class PcapngOutput implements IPcapOutput {
   private final List<LinkType> linkTypes = new ArrayList<>();
 
   /**
-   * Creates the output stream for the pcapng.
+   * Creates the output stream for the pcapng. Note that this method does NOT write
+   * the mandatory section header block. So you should do that immediatelly after the
+   * opening of the file.
+   * 
+   * This method calls file open with WRITE, CREATE and TRUNCATE_EXISTING options,
+   * so it effectivelly overwrite any file in place and resets it to zero length.
+   * 
+   * If you wish to append to existing file, use the other constructor and
+   * use {@link StandardOpenOption.APPEND}
    *
    * @param f File to write into.
    * @throws IOException in case of failures with underlying operations.
    */
   public PcapngOutput(final File f) throws IOException {
-    channel = FileChannel.open(f.toPath(),
-                               StandardOpenOption.WRITE,
-                               StandardOpenOption.CREATE,
-                               StandardOpenOption.TRUNCATE_EXISTING);
+    this(f, 
+         StandardOpenOption.WRITE,
+         StandardOpenOption.CREATE,
+         StandardOpenOption.TRUNCATE_EXISTING);
+  }
+
+  /**
+   * Creates the output stream for the pcapng. Note that this method does NOT write
+   * the mandatory section header block. So you should do that immediatelly after the
+   * opening of the file.
+   * 
+   * This method will truncate an existing file.
+   *
+   * @param f File to write into.
+   * @param openOptions Standard open options passed to File channel. See {@link StandardOpenOption}.
+   * @throws IOException in case of failures with underlying operations.
+   */
+  public PcapngOutput(final File f, StandardOpenOption... openOptions) throws IOException {
+    channel = FileChannel.open(f.toPath(), openOptions);
   }
 
   private void writeBlock(final BlockType blockType,
