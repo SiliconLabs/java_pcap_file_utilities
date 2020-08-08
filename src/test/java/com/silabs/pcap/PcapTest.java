@@ -55,12 +55,13 @@ class PcapTest {
     f.deleteOnExit();
 
     try (IPcapOutput out = Pcap.openForWriting(f)) {
-      out.writeInterfaceDescriptionBlock(LinkType.BACNET_MS_TP,
-                                         Pcap.RESOLUTION_MICROSECONDS);
+      int interfaceId = out
+          .writeInterfaceDescriptionBlock(LinkType.BACNET_MS_TP,
+                                          Pcap.RESOLUTION_MICROSECONDS);
       for (int i = 10; i < 10 + PACKET_COUNT; i++) {
         byte[] data = new byte[i];
         Arrays.fill(data, (byte) i);
-        out.writeEnhancedPacketBlock(0, i, data);
+        out.writeEnhancedPacketBlock(interfaceId, i, data);
       }
     }
 
@@ -109,12 +110,12 @@ class PcapTest {
 
       Option[] opts = block.options();
       Assertions.assertEquals(3, opts.length);
-      Assertions.assertEquals(OptionType.SHB_USERAPPL, OptionType.lookup(block.type(),
-                                                                         opts[2].code()));
-      Assertions.assertEquals(OptionType.SHB_OS, OptionType.lookup(block.type(),
-                                                                         opts[1].code()));
-      Assertions.assertEquals(OptionType.SHB_HARDWARE, OptionType.lookup(block.type(),
-                                                                   opts[0].code()));
+      Assertions.assertEquals(OptionType.SHB_USERAPPL,
+                              OptionType.lookup(block.type(), opts[2].code()));
+      Assertions.assertEquals(OptionType.SHB_OS,
+                              OptionType.lookup(block.type(), opts[1].code()));
+      Assertions.assertEquals(OptionType.SHB_HARDWARE,
+                              OptionType.lookup(block.type(), opts[0].code()));
       Assertions.assertEquals("java-pcap", new String(opts[2].value()));
     }
 
@@ -126,9 +127,12 @@ class PcapTest {
 
     try (IPcapInput in = Pcap.openForReading(f)) {
       Block block = in.nextBlock();
-      Assertions.assertEquals("test hardware", new String(block.options()[0].value()));
-      Assertions.assertEquals("test os name", new String(block.options()[1].value()));
-      Assertions.assertEquals("test application", new String(block.options()[2].value()));
+      Assertions.assertEquals("test hardware",
+                              new String(block.options()[0].value()));
+      Assertions.assertEquals("test os name",
+                              new String(block.options()[1].value()));
+      Assertions.assertEquals("test application",
+                              new String(block.options()[2].value()));
     }
 
   }

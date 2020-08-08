@@ -61,7 +61,8 @@ public class Pcap {
   /**
    * Returns true if this file is of a correct type.
    *
-   * @param f File to use.
+   * @param f
+   *          File to use.
    * @return True if this file can be read with this library.
    */
   public static boolean isFileCorrectType(final File f) {
@@ -74,42 +75,52 @@ public class Pcap {
   }
 
   /**
-   * Creates a PCAPNG file for writing, using local defaults for hardware and
-   * OS name. It uses `java-pcap` as application name. If you wish to pass
+   * Creates a PCAPNG file for writing, using local defaults for hardware and OS
+   * name. It uses `java-pcap` as application name. If you wish to pass
    * different value, use the other openForWriting() method.
    *
-   * @param f File to use.
+   * @param f
+   *          File to use.
    * @return Output object that can be used to add blocks to the file.
-   * @throws IOException from underlying IO operations.
+   * @throws IOException
+   *           from underlying IO operations.
    */
   public static IPcapOutput openForWriting(final File f) throws IOException {
     return openForWriting(f,
                           System.getProperty("os.arch"),
-                          System.getProperty("os.name") + ", ver " + System.getProperty("os.version"),
+                          System.getProperty("os.name") + ", ver " + System
+                              .getProperty("os.version"),
                           "java-pcap");
   }
 
   /**
    * Equivalent to openForWriting(p.toFile())
    * 
-   * @param p Path to use
+   * @param p
+   *          Path to use
    * @return Output object that can be used to add blocks to the file.
-   * @throws IOException from underlying IO operations.
+   * @throws IOException
+   *           from underlying IO operations.
    */
   public static IPcapOutput openForWriting(final Path p) throws IOException {
     return openForWriting(p.toFile());
   }
 
   /**
-   * Opens a file for writing. This method will already write out the section header block that is mandatory 
-   * at the beginning of the file.
+   * Opens a file for writing. This method will already write out the section
+   * header block that is mandatory at the beginning of the file.
    *
-   * @param f File to use.
-   * @param hardware String describing hardware used for creating this file.
-   * @param osName String describing operating system used in creation of this file.
-   * @param applicationName Name of the application creating the PCAPNG file.
+   * @param f
+   *          File to use.
+   * @param hardware
+   *          String describing hardware used for creating this file.
+   * @param osName
+   *          String describing operating system used in creation of this file.
+   * @param applicationName
+   *          Name of the application creating the PCAPNG file.
    * @return Output object that can be used to add blocks to the file.
-   * @throws IOException from underlying IO operations.
+   * @throws IOException
+   *           from underlying IO operations.
    */
   public static IPcapOutput openForWriting(final File f,
                                            final String hardware,
@@ -123,9 +134,11 @@ public class Pcap {
   /**
    * Opens a static file and returns the pcap stream.
    *
-   * @param f File to read.
+   * @param f
+   *          File to read.
    * @return Input object that can be used to retrieve data.
-   * @throws IOException from underlying IO operations.
+   * @throws IOException
+   *           from underlying IO operations.
    */
   @SuppressWarnings("resource")
   public static IPcapInput openForReading(final File f) throws IOException {
@@ -156,11 +169,12 @@ public class Pcap {
     fis.close();
     throw new IOException("Invalid PCAP file format.");
   }
-  
+
   /**
    * Equivalent to openForReading(path.toFile())
    * 
-   * @param p Path to read.
+   * @param p
+   *          Path to read.
    * @return Input object that can be used to retrieve data.
    * @throws IOException
    */

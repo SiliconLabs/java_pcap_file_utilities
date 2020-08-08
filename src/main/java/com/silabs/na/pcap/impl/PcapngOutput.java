@@ -44,6 +44,7 @@ public class PcapngOutput implements IPcapOutput {
   private FileChannel channel = null;
   private final List<Integer> timestampResolutions = new ArrayList<>();
   private final List<LinkType> linkTypes = new ArrayList<>();
+  private int lastInterfaceIdWritten = -1; // Growing index
 
   /**
    * Creates the output stream for the pcapng. Note that this method does NOT write
@@ -146,7 +147,7 @@ public class PcapngOutput implements IPcapOutput {
    * @throws IOException in case of errors with underlying IO operations
    */
   @Override
-  public void writeInterfaceDescriptionBlock(final LinkType linkType,
+  public int writeInterfaceDescriptionBlock(final LinkType linkType,
                                              final int timestampResolution) throws IOException {
     this.linkTypes.add(linkType);
     this.timestampResolutions.add(timestampResolution);
@@ -168,6 +169,8 @@ public class PcapngOutput implements IPcapOutput {
 
     bb.flip();
     writeBlock(BlockType.INTERFACE_DESCRIPTION_BLOCK, bb);
+    lastInterfaceIdWritten++;
+    return lastInterfaceIdWritten;
   }
 
   /**

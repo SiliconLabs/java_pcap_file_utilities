@@ -175,12 +175,17 @@ public class ByteArrayUtil {
   /**
    * Converts an array of bytes into a long. The length should be at most 8.
    *
-   * @param raw Byte array for input.
-   * @param offset Index into the byte array where reading should start.
-   * @param length How many bytes to read.
-   * @param bigEndian If true, the big-endian byte order is assumed.
+   * @param raw
+   *          Byte array for input.
+   * @param offset
+   *          Index into the byte array where reading should start.
+   * @param length
+   *          How many bytes to read.
+   * @param bigEndian
+   *          If true, the big-endian byte order is assumed.
    * @return long value
-   * @throws ArrayIndexOutOfBoundsException if something is wrong with indexes.
+   * @throws ArrayIndexOutOfBoundsException
+   *           if something is wrong with indexes.
    */
   public static long byteArrayToLong(final byte[] raw,
                                      final int offset,

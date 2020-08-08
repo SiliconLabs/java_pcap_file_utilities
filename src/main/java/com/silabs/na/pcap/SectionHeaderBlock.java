@@ -32,10 +32,16 @@ public class SectionHeaderBlock {
 
   /**
    * Creates a section header block with a given values.
-   * @param bigEndian If true, then this section is big endian.
-   * @param major Major version of the PCAPNG format used.
-   * @param minor Minor version of a PCAPNG format used.
-   * @param sectionLength Length of a section, in bytes. May be -1, "indicating unspecified".
+   * 
+   * @param bigEndian
+   *          If true, then this section is big endian.
+   * @param major
+   *          Major version of the PCAPNG format used.
+   * @param minor
+   *          Minor version of a PCAPNG format used.
+   * @param sectionLength
+   *          Length of a section, in bytes. May be -1, "indicating
+   *          unspecified".
    */
   public SectionHeaderBlock(final boolean bigEndian, final int major,
       final int minor, final int sectionLength) {
@@ -48,11 +54,12 @@ public class SectionHeaderBlock {
   @Override
   public String toString() {
     return "Section header: ver=" + major + "." + minor + ", len="
-        + sectionLength + "," + (bigEndian ? "big endian" : "little endian");
+           + sectionLength + "," + (bigEndian ? "big endian" : "little endian");
   }
 
   /**
    * Major version of the PCAPNG format used.
+   * 
    * @return major version
    */
   public int majorVersion() {
@@ -61,6 +68,7 @@ public class SectionHeaderBlock {
 
   /**
    * Minor version of the PCAPNG format used.
+   * 
    * @return minor version
    */
   public int minorVersion() {

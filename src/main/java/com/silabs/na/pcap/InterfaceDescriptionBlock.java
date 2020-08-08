@@ -48,8 +48,8 @@ public class InterfaceDescriptionBlock {
   }
 
   /**
-   * Returns the maximum number of bytes dumped from each packet.
-   * The portion of each packet that exceeds this value will not be stored in the file.
+   * Returns the maximum number of bytes dumped from each packet. The portion of
+   * each packet that exceeds this value will not be stored in the file.
    *
    * @return max length of packets.
    */

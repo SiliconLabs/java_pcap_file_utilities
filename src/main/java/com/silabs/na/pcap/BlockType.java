@@ -59,8 +59,10 @@ public enum BlockType {
   /**
    * Given a type code, return the enum value that matches it.
    *
-   * @param code Integer to resolve.
-   * @return Corresponding enum value, or UNKNOWN if the number doesn't match any.
+   * @param code
+   *          Integer to resolve.
+   * @return Corresponding enum value, or UNKNOWN if the number doesn't match
+   *         any.
    */
   public static BlockType resolve(final int code) {
     for (BlockType t : values()) {

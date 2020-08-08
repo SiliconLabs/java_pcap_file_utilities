@@ -33,8 +33,10 @@ public class PacketBlock {
   /**
    * Creates a new packet block with given timestamp and data.
    *
-   * @param nanoseconds Timestamp.
-   * @param data Data inside this packet.
+   * @param nanoseconds
+   *          Timestamp.
+   * @param data
+   *          Data inside this packet.
    */
   public PacketBlock(final long nanoseconds, final byte[] data) {
     this.nanoseconds = nanoseconds;
@@ -49,6 +51,7 @@ public class PacketBlock {
 
   /**
    * Byte array that contain the payload of this packet.
+   * 
    * @return byte array
    */
   public byte[] data() {

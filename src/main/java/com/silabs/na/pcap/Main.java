@@ -27,8 +27,8 @@ import java.util.Map;
 import com.silabs.na.pcap.util.ByteArrayUtil;
 
 /**
- * Main class for the CLI interface. The only purpose of this class
- * is to provide an interface to a command line usage of a jar file.
+ * Main class for the CLI interface. The only purpose of this class is to
+ * provide an interface to a command line usage of a jar file.
  *
  * There is no other useful API here.
  *
@@ -41,6 +41,7 @@ public class Main {
     SUMMARY("print out the summary of the file");
 
     private String description;
+
     Command(final String description) {
       this.description = description;
     }
@@ -55,7 +56,7 @@ public class Main {
   private void usage() {
     out.println("Usage: java -jar silabs-pcap.jar [COMMAND] [PCAPFILE]");
     out.println("Valid commands:");
-    for ( Command c: Command.values() ) {
+    for (Command c : Command.values()) {
       out.println("  " + c.name().toLowerCase() + ": " + c.description);
     }
   }
@@ -66,18 +67,18 @@ public class Main {
     } else {
       String commandS = args[0];
       Command actualCommand = null;
-      for ( Command c: Command.values() ) {
-        if ( c.name().toLowerCase().equals(commandS.toLowerCase()) ) {
+      for (Command c : Command.values()) {
+        if (c.name().toLowerCase().equals(commandS.toLowerCase())) {
           actualCommand = c;
           break;
         }
       }
-      if ( actualCommand == null ) {
+      if (actualCommand == null) {
         usage();
       } else {
         String path = args[1];
         try {
-          switch(actualCommand) {
+          switch (actualCommand) {
           case DUMP:
             dumpFile(path);
             break;
@@ -102,11 +103,11 @@ public class Main {
       isAscii = ot.isAscii();
     StringBuilder sb = new StringBuilder();
     sb.append(o.code());
-    if ( ot != null ) {
+    if (ot != null) {
       sb.append(" (").append(ot.name()).append(")");
     }
     sb.append(": ");
-    if ( isAscii )
+    if (isAscii)
       sb.append(new String(o.value()));
     else
       sb.append(ByteArrayUtil.formatByteArray(o.value()));
@@ -122,16 +123,16 @@ public class Main {
       while ((b = in.nextBlock()) != null) {
         n++;
         Integer x = blockTypeCounters.get(b.type());
-        if ( x == null ) {
+        if (x == null) {
           blockTypeCounters.put(b.type(), 1);
         } else {
-          blockTypeCounters.put(b.type(), x+1);
+          blockTypeCounters.put(b.type(), x + 1);
         }
       }
     }
     out.println("Total block count: " + n);
     out.println("Counts per block type: ");
-    for  ( BlockType bt: blockTypeCounters.keySet()) {
+    for (BlockType bt : blockTypeCounters.keySet()) {
       out.println("  - " + bt.name() + ": " + blockTypeCounters.get(bt));
     }
   }
@@ -139,8 +140,10 @@ public class Main {
   /**
    * Logic that gets executed on a file when the "dump" command is used.
    *
-   * @param path String path of the file to open.
-   * @throws IOException when underlying IO operation fails.
+   * @param path
+   *          String path of the file to open.
+   * @throws IOException
+   *           when underlying IO operation fails.
    */
   public void dumpFile(final String path) throws IOException {
     File f = new File(path);
@@ -149,18 +152,19 @@ public class Main {
       Block b;
       int n = 0;
       while ((b = in.nextBlock()) != null) {
-        out.println(String.format("Block #%06d", (n++)) + ": " + b.type().name());
+        out.println(String.format("Block #%06d", (n++)) + ": "
+                    + b.type().name());
         if (b.containsDataOfType(PacketBlock.class)) {
           PacketBlock pb = (PacketBlock) b.data();
           out.println("  - nanoseconds: " + pb.nanoseconds());
           out.println("  - packet: "
-              + ByteArrayUtil.formatByteArray(pb.data()));
+                      + ByteArrayUtil.formatByteArray(pb.data()));
         } else if (b.containsDataOfType(SectionHeaderBlock.class)) {
           SectionHeaderBlock shb = (SectionHeaderBlock) b.data();
           out.println("  - endianess: "
-              + (shb.isBigEndian() ? "big endian" : "little endian"));
+                      + (shb.isBigEndian() ? "big endian" : "little endian"));
           out.println("  - version: " + shb.majorVersion() + "."
-              + shb.minorVersion());
+                      + shb.minorVersion());
         } else if (b.containsDataOfType(InterfaceDescriptionBlock.class)) {
           InterfaceDescriptionBlock idb = (InterfaceDescriptionBlock) b.data();
           out.println("  - link type: " + idb.linkType().name());
@@ -186,7 +190,8 @@ public class Main {
   /**
    * Execution entry point.
    *
-   * @param args Command line arguments.
+   * @param args
+   *          Command line arguments.
    */
   public static void main(final String[] args) {
     Main m = new Main(System.out);

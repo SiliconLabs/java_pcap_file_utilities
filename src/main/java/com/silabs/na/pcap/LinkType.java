@@ -158,7 +158,8 @@ public enum LinkType {
   /**
    * Given a code, returns the enum value that matches it.
    *
-   * @param code Value to resolve.
+   * @param code
+   *          Value to resolve.
    * @return Matching enum value, or UNKNOWN.
    */
   public static LinkType resolve(final int code) {

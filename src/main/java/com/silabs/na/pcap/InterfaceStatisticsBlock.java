@@ -35,6 +35,7 @@ public class InterfaceStatisticsBlock {
 
   /**
    * Returns the interface ID that this block contains statistics for.
+   * 
    * @return interface id
    */
   public int interfaceId() {

@@ -32,8 +32,10 @@ public class Option {
   /**
    * Creates an option with given type and value.
    *
-   * @param code Code of option.
-   * @param value Value of option.
+   * @param code
+   *          Code of option.
+   * @param value
+   *          Value of option.
    */
   public Option(final int code, final byte[] value) {
     this.code = code;
@@ -59,9 +61,8 @@ public class Option {
   }
 
   /**
-   * Returns the total size of this option in bytes.
-   * The size includes the entire length including 2 byte code,
-   * 2 byte length and padding.
+   * Returns the total size of this option in bytes. The size includes the
+   * entire length including 2 byte code, 2 byte length and padding.
    *
    * @return Total option size in bytes.
    */

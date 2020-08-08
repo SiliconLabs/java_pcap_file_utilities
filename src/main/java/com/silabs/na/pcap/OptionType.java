@@ -113,6 +113,7 @@ public enum OptionType {
 
   /**
    * Block type.
+   * 
    * @return block type
    */
   public BlockType blockType() {
@@ -122,9 +123,12 @@ public enum OptionType {
   /**
    * Returns the option type, or UNKNOWN.
    *
-   * @param b Block type to look up options for.
-   * @param code Option code.
-   * @return Option type if one was found, or UNKNOWN othwewise. Does not return null.
+   * @param b
+   *          Block type to look up options for.
+   * @param code
+   *          Option code.
+   * @return Option type if one was found, or UNKNOWN othwewise. Does not return
+   *         null.
    */
   public static OptionType lookup(final BlockType b, final int code) {
     for (OptionType ot : globalOptionTypes) {

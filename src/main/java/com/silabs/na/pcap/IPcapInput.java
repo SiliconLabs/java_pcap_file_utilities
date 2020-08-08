@@ -38,7 +38,8 @@ public interface IPcapInput extends Closeable {
   /**
    * Returns the next packet block.
    *
-   * @throws IOException if anything went wrong with underlying IO operations.
+   * @throws IOException
+   *           if anything went wrong with underlying IO operations.
    * @return next packet block in the file, or null if there is no more.
    */
   public Block nextBlock() throws IOException;
