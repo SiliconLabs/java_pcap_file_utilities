@@ -27,10 +27,10 @@ jobs:
     - name: Archive jar file
       uses: actions/upload-artifact@v2
       with:
-        name: java_pcap.jar
+        name: java-pcap.zip
         path: build/libs/java-pcap-*.jar
     - name: Archive license file
       uses: actions/upload-artifact@v2
       with:
-        name: java_pcap.jar
+        name: java-pcap.zip
         path: LICENSE-2.0.txt
