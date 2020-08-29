@@ -25,12 +25,12 @@ jobs:
     - name: Run gradle build
       run: ./gradlew build
     - name: Archive jar file
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
-        name: java_pcap.zip
-        path: build/libs/java-pcap-0.99.6.jar
+        name: java_pcap.jar
+        path: build/libs/java-pcap-*.jar
     - name: Archive license file
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
-        name: java_pcap.zip
+        name: java_pcap.jar
         path: LICENSE-2.0.txt

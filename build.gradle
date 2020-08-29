@@ -18,7 +18,7 @@ test {
 
 jar {
     archiveBaseName = 'java-pcap'
-    archiveVersion = '0.99.6'
+    archiveVersion = new File('VERSION').text.trim()
     manifest {
         attributes(
             'Built-By'       : System.properties['user.name'],
@@ -26,7 +26,7 @@ jar {
             'Created-By'     : "Gradle ${gradle.gradleVersion}",
             'Build-Jdk'      : "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
             'Build-OS'       : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
-	    'Main-Class'     : 'com.silabs.na.pcap.Main'
+	    	'Main-Class'     : 'com.silabs.na.pcap.Main'
         )
     }
 }
