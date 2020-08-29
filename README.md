@@ -66,4 +66,4 @@ in a unit test under:
 # License
 
 This library was originally developed by Silicon Labs.
-It is now provided as open source, licensed by [Apache 2.0 license](LICENSE-2.0.txt). 
+It is now provided as open source, licensed by [Apache 2.0 license](LICENSE.txt). 
