@@ -18,7 +18,7 @@ test {
 
 jar {
     archiveBaseName = 'java-pcap'
-    archiveVersion = new File('VERSION').text.trim()
+    archiveVersion = file('VERSION').text.trim()
     manifest {
         attributes(
             'Built-By'       : System.properties['user.name'],
