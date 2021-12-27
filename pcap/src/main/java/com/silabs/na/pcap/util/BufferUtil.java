@@ -129,7 +129,7 @@ public class BufferUtil {
     // Wireshark is sensitive to byte order. If the files from live interface are not in the
     // the same order as the native byte order of the machine it complains. Hence we 
     // set this to native byte order by default.
-    //bb.order(ByteOrder.nativeOrder());
+    bb.order(ByteOrder.nativeOrder());
     return bb;
   }
 

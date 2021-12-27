@@ -20,9 +20,12 @@ package com.silabs.na.pcap;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import com.silabs.na.pcap.util.ByteArrayUtil;
 
@@ -54,16 +57,45 @@ public class Main {
   }
 
   private void usage() {
-    out.println("Usage: java -jar silabs-pcap.jar [COMMAND] [PCAPFILE]");
+    out.println("Usage: java -jar silabs-pcap.jar [-v] [COMMAND] [PCAPFILE]");
     out.println("Valid commands:");
     for (Command c : Command.values()) {
       out.println("  " + c.name().toLowerCase() + ": " + c.description);
     }
   }
 
+  private void printVersionAndExit() {
+    String date = "unknown";
+    String hash = "unknown";
+    String version = "unknown";
+
+    URL u = getClass().getClassLoader().getResource("build_pcap.stamp");
+    if (u != null) {
+      Properties p = new Properties();
+      try {
+        try (InputStream is = u.openStream()) {
+          p.load(is);
+        }
+        date = p.getProperty("date");
+        hash = p.getProperty("hash");
+        version = p.getProperty("version");
+      } catch (Exception e) {
+        System.err.println("Error reading build information.");
+      }
+    }
+    System.out.println("Library information:");
+    System.out.println("  - version: " + version);
+    System.out.println("  - date: " + date);
+    System.out.println("  - hash: " + hash);
+    System.exit(0);
+  }
+
+
   private void run(final String[] args) {
     if (args.length == 0) {
       usage();
+    } else if ( args[0].equals("-v")) {
+      printVersionAndExit();
     } else {
       String commandS = args[0];
       Command actualCommand = null;

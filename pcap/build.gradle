@@ -2,24 +2,6 @@ plugins {
     id 'java-library'
 }
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
-}
-
-test {
-    useJUnitPlatform()
-}
-
-java {
-  withJavadocJar()
-  withSourcesJar()
-}
-
 project.ext.set('archiveName', 'java-pcap')
 project.ext.set('pcapVersion', file('VERSION').text.trim())
 project.ext.set('buildDate', new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date())) 
@@ -32,6 +14,24 @@ project.ext.set('manifestMap', [
       'Build-OS'       : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
       'Main-Class'     : project.mainClass
     ])
+
+repositories {
+    mavenCentral()
+}
+
+java {
+  withJavadocJar()
+  withSourcesJar()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
+}
+
+test {
+    useJUnitPlatform()
+}
 
 javadocJar {
   archiveBaseName = project.archiveName
@@ -48,21 +48,14 @@ jar {
     archiveBaseName = project.archiveName
     archiveVersion = project.pcapVersion
     manifest {
-        attributes(
-            'Built-By'       : System.properties['user.name'],
-            'Build-Timestamp': new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date()),
-            'Created-By'     : "Gradle ${gradle.gradleVersion}",
-            'Build-Jdk'      : "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
-            'Build-OS'       : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
-	    	'Main-Class'     : 'com.silabs.na.pcap.Main'
-        )
+        attributes(project.manifestMap)
     }
 }
 
 task createBuildStamp() {
   doLast {
     def gitOutput = 'git log -1 --format=hash=%H%ndate=%cI'.execute().text
-    file('src/main/resources/build.stamp').text = """version=${project.pcapVersion}
+    file('src/main/resources/build_pcap.stamp').text = """version=${project.pcapVersion}
 ${gitOutput}"""
     project.logger.lifecycle('Created build.stamp.')
   }

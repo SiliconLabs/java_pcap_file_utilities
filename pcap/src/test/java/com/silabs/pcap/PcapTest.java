@@ -51,8 +51,8 @@ class PcapTest {
   @Test
   void testWriteAndReadBack() throws IOException {
     final int PACKET_COUNT = 200;
-    File f = File.createTempFile("test_", "pcap");
-    f.deleteOnExit();
+    File f = File.createTempFile("test_", ".pcap");
+    //f.deleteOnExit();
 
     try (IPcapOutput out = Pcap.openForWriting(f)) {
       int interfaceId = out
