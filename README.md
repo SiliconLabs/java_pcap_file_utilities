@@ -14,19 +14,19 @@ You can build it using gradle via:
 ```
 This will result in a file:
 
-`build/libs/java-pcap-<VERSION>.jar`
+`pcap/build/libs/java-pcap-<VERSION>.jar`
 
 # How do I use this library?
 
 A quick and dirty way is to simply use the jar from command line:
 ```
-java -jar build/libs/java-pcap-<VERSION>.jar dump <PCAP_FILE>
+java -jar pcap/build/libs/java-pcap-<VERSION>.jar dump <PCAP_FILE>
 ```
 This will read the pcap or pcapng file provided and print out the details from that file.
 
 Full command line options are printed if you provide no arguments:
 ```
-java -jar build/libs/java-pcap-<VERSION>.jar
+java -jar pcap/build/libs/java-pcap-<VERSION>.jar
 ```
 
 

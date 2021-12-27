@@ -4,6 +4,7 @@
 # Ignore Gradle build output directory
 build
 bin
+build_pcap.stamp
 
 # SonarQube scans
 .scannerwork/

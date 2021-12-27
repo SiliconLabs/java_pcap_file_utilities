@@ -177,6 +177,7 @@ public class Pcap {
    *          Path to read.
    * @return Input object that can be used to retrieve data.
    * @throws IOException
+   *   In case anything goes wrong with the underlying IO operations.
    */
   public static IPcapInput openForReading(Path p) throws IOException {
     return openForReading(p.toFile());
