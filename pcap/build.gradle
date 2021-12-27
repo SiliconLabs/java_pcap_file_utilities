@@ -15,10 +15,38 @@ test {
     useJUnitPlatform()
 }
 
+java {
+  withJavadocJar()
+  withSourcesJar()
+}
+
+project.ext.set('archiveName', 'java-pcap')
+project.ext.set('pcapVersion', file('VERSION').text.trim())
+project.ext.set('buildDate', new java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").format(new Date())) 
+project.ext.set('mainClass', 'com.silabs.na.pcap.Main')
+project.ext.set('manifestMap', [
+      'Built-By'       : System.properties['user.name'],
+      'Build-Timestamp': project.buildDate,
+      'Created-By'     : "Gradle ${gradle.gradleVersion}",
+      'Build-Jdk'      : "${System.properties['java.version']} (${System.properties['java.vendor']} ${System.properties['java.vm.version']})",
+      'Build-OS'       : "${System.properties['os.name']} ${System.properties['os.arch']} ${System.properties['os.version']}",
+      'Main-Class'     : project.mainClass
+    ])
+
+javadocJar {
+  archiveBaseName = project.archiveName
+  archiveVersion = project.pcapVersion
+}
+
+sourcesJar {
+  archiveBaseName = project.archiveName
+  archiveVersion = project.pcapVersion
+}
+
 
 jar {
-    archiveBaseName = 'java-pcap'
-    archiveVersion = file('VERSION').text.trim()
+    archiveBaseName = project.archiveName
+    archiveVersion = project.pcapVersion
     manifest {
         attributes(
             'Built-By'       : System.properties['user.name'],
@@ -31,9 +59,18 @@ jar {
     }
 }
 
-javadoc {
-    destinationDir = file('docs/javadoc/')
-    options {
-        noTimestamp = true
-    }
+task createBuildStamp() {
+  doLast {
+    def gitOutput = 'git log -1 --format=hash=%H%ndate=%cI'.execute().text
+    file('src/main/resources/build.stamp').text = """version=${project.pcapVersion}
+${gitOutput}"""
+    project.logger.lifecycle('Created build.stamp.')
+  }
 }
+tasks.processResources.dependsOn << 'createBuildStamp'
+
+task all {
+  description 'Toplevel task that creates everything.'
+  dependsOn createBuildStamp,jar,javadocJar,sourcesJar
+}
+

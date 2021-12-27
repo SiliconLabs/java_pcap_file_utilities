@@ -55,7 +55,7 @@ public class PcapngOutput implements IPcapOutput {
    * so it effectivelly overwrite any file in place and resets it to zero length.
    * 
    * If you wish to append to existing file, use the other constructor and
-   * use {@link StandardOpenOption.APPEND}
+   * use StandardOpenOption.APPEND
    *
    * @param f File to write into.
    * @throws IOException in case of failures with underlying operations.
@@ -85,7 +85,7 @@ public class PcapngOutput implements IPcapOutput {
   private void writeBlock(final BlockType blockType,
                           final ByteBuffer data) throws IOException {
     int totalBlockLength = 12 + data.remaining();
-    ByteBuffer bb = ByteBuffer.allocateDirect(totalBlockLength);
+    ByteBuffer bb = BufferUtil.createByteBuffer(totalBlockLength);
     bb.putInt(blockType.typeCode());
     bb.putInt(totalBlockLength);
     bb.put(data);
@@ -160,7 +160,7 @@ public class PcapngOutput implements IPcapOutput {
       options.add(new Option(OptionType.IF_TSRESOL.code(), resol));
     }
     size += lengthOfOptions(options);
-    ByteBuffer bb = ByteBuffer.allocateDirect(size);
+    ByteBuffer bb = BufferUtil.createByteBuffer(size);
     bb.putShort((short) linkType.code()); // Link type
     bb.putShort((short) 0); // reserved
     bb.putInt(0); // Snap len
@@ -193,7 +193,7 @@ public class PcapngOutput implements IPcapOutput {
       throw new IOException("Can't write enhanced packet block with an interface ID index being larger than the number of previous interface description blocks.");
     }
 
-    ByteBuffer bb = ByteBuffer.allocateDirect(totLengh);
+    ByteBuffer bb = BufferUtil.createByteBuffer(totLengh);
     bb.putInt(interfaceId);
     bb.putInt((int) (timestamp >>> 32));
     bb.putInt((int) (timestamp & 0x00000000FFFFFFFFl));
@@ -224,14 +224,13 @@ public class PcapngOutput implements IPcapOutput {
       options.add(new Option(OptionType.SHB_OS.code(), osName.getBytes()));
     if ( applicationName != null )
       options.add(new Option(OptionType.SHB_USERAPPL.code(), applicationName.getBytes()));
-    ByteBuffer bb = ByteBuffer.allocateDirect(16 + lengthOfOptions(options));
+    ByteBuffer bb = BufferUtil.createByteBuffer(16 + lengthOfOptions(options));
     bb.putInt(PcapngInputNio.BYTE_ORDER_MAGIC);
     bb.putShort((short) Pcap.PCAPNG_VERSION_MAJOR);
     bb.putShort((short) Pcap.PCAPNG_VERSION_MINOR);
     bb.putLong(0xFFFFFFFFFFFFFFFFl);
     writeOptions(bb, options);
     bb.flip();
-
     writeBlock(BlockType.SECTION_HEADER_BLOCK, bb);
   }
 

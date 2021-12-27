@@ -36,14 +36,11 @@ public class BufferUtil {
   /**
    * Calculates the padding bytes to a given byte boundary.
    *
-   * @param dataLength
-   *          Length of the data.
-   * @param byteBoundary
-   *          Byte boundary.
+   * @param dataLength   Length of the data.
+   * @param byteBoundary Byte boundary.
    * @return the number of bytes that should be added to the padding.
    */
-  public static int paddingLength(final int dataLength,
-                                  final int byteBoundary) {
+  public static int paddingLength(final int dataLength, final int byteBoundary) {
     int rem = (dataLength % byteBoundary);
     if (rem == 0)
       return 0;
@@ -56,15 +53,11 @@ public class BufferUtil {
    * it's endianess. Buffer will be cleared and flipped along the way, so don't
    * expect any data to be preserved in it.
    *
-   * @param rbc
-   *          Byte channel for reading.
-   * @param buffer
-   *          The temporary buffer used for the operation.
-   * @param n
-   *          Number of bytes that make up the int.
+   * @param rbc    Byte channel for reading.
+   * @param buffer The temporary buffer used for the operation.
+   * @param n      Number of bytes that make up the int.
    * @return Integer value of the read buffer.
-   * @throws IOException
-   *           if something fails with underlying IO operations.
+   * @throws IOException if something fails with underlying IO operations.
    */
   public static int readNByteIntFromChannel(final ReadableByteChannel rbc,
                                             final ByteBuffer buffer,
@@ -73,8 +66,7 @@ public class BufferUtil {
     buffer.limit(n);
     int howMany = rbc.read(buffer);
     if (howMany != n)
-      throw new IOException("Reading " + n + " bytes, only " + howMany
-                            + " read.");
+      throw new IOException("Reading " + n + " bytes, only " + howMany + " read.");
     buffer.flip();
     return readNByteIntFromBuffer(buffer, n);
   }
@@ -82,15 +74,11 @@ public class BufferUtil {
   /**
    * Read buffers from channel into a byte buffer.
    *
-   * @param rbc
-   *          Byte channel for reading.
-   * @param buffer
-   *          The temporary buffer used for the operation.
-   * @param length
-   *          Number of bytes to read.
+   * @param rbc    Byte channel for reading.
+   * @param buffer The temporary buffer used for the operation.
+   * @param length Number of bytes to read.
    * @return Bytes that were read.
-   * @throws IOException
-   *           if something fails with underlying IO operations.
+   * @throws IOException if something fails with underlying IO operations.
    */
   public static byte[] readBytesFromChannel(final ReadableByteChannel rbc,
                                             final ByteBuffer buffer,
@@ -119,18 +107,30 @@ public class BufferUtil {
   /**
    * Reads a N byte integer from buffer and return it.
    *
-   * @param buffer
-   *          Buffer from which to read bytes.
-   * @param n
-   *          Number of bytes that make up an integer.
+   * @param buffer Buffer from which to read bytes.
+   * @param n      Number of bytes that make up an integer.
    * @return Integer value.
    */
-  public static int readNByteIntFromBuffer(final ByteBuffer buffer,
-                                           final int n) {
+  public static int readNByteIntFromBuffer(final ByteBuffer buffer, final int n) {
     byte[] bytes = new byte[n];
     buffer.get(bytes);
-    return ByteArrayUtil
-        .byteArrayToInt(bytes, 0, n, buffer.order() == ByteOrder.BIG_ENDIAN);
+    return ByteArrayUtil.byteArrayToInt(bytes, 0, n, buffer.order() == ByteOrder.BIG_ENDIAN);
+  }
+
+  /**
+   * This method creates a byte buffer, possibly changing the endianess from the default java
+   * bit endian, into little endian, if that's the local platform.
+   * 
+   * @param size Size of buffer to allocate initially.
+   * @return {@link ByteBuffer}
+   */
+  public static ByteBuffer createByteBuffer(int size) {
+    ByteBuffer bb = ByteBuffer.allocateDirect(size);
+    // Wireshark is sensitive to byte order. If the files from live interface are not in the
+    // the same order as the native byte order of the machine it complains. Hence we 
+    // set this to native byte order by default.
+    //bb.order(ByteOrder.nativeOrder());
+    return bb;
   }
 
 }
