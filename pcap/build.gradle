@@ -52,6 +52,36 @@ jar {
     }
 }
 
+task generateLinkType() {
+  doLast {
+    def dltH = file('../../libpcap/pcap/dlt.h')
+    def linkTypeJava = file('src/main/java/com/silabs/na/pcap/LinkType.java')
+    def head = "head -n 29 ${linkTypeJava.toString()}".execute().text
+    def tail = "tail -n 32 ${linkTypeJava.toString()}".execute().text
+    def list = dltH.text.readLines().findAll { it.startsWith("#define DLT_") && !it.contains("DLT_CLASS(x)") &&!it.contains("MATCHING_MAX") }
+    list = list.findAll { !(it.contains("PFSYNC") && !it.contains("246")) }
+    list = list.findAll { !(it.contains("RAW") && !it.contains("12")) }
+    list = list.findAll { !(it.contains("SLIP_BSDOS") && !it.contains("15")) }
+    list = list.findAll { !(it.contains("PPP_BSDOS") && !it.contains("16")) }
+    list = list.findAll { !(it.contains("DLT_LOOP") && !it.contains("108")) }
+    list = list.findAll { !(it.contains("DLT_ENC") && !it.contains("109")) }
+    list = list.findAll { !(it.contains("DLT_HDLC") && !it.contains("112")) }
+    list = list.collect { l -> 
+      def split = l.split("\\s+")
+      if ( split[1].startsWith("DLT_") ) {
+        split[1] = split[1].substring(4)
+      }
+      if ( split[2].startsWith("DLT_") ) {
+        return ""
+      } else {
+        return "  ${split[1]}(${split[2]}),"
+      }
+    }
+    def body = list.join('\n')
+    linkTypeJava.text = "${head}${body}\n${tail}"
+  }
+}
+
 task createBuildStamp() {
   doLast {
     def gitOutput = 'git log -1 --format=hash=%H%ndate=%cI'.execute().text
