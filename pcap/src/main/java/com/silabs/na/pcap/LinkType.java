@@ -270,7 +270,7 @@ public enum LinkType {
    *
    * @return
    */
-  public LinkType silabsDebugChannel() {
+  public static LinkType silabsDebugChannel() {
     return SILABS_DEBUG_CHANNEL;
   }
 
