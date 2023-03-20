@@ -239,6 +239,13 @@ public enum LinkType {
   ETW(290),
   NETANALYZER_NG(291),
   ZBOSS_NCP(292),
+  USB_2_0_LOW_SPEED(293),
+  USB_2_0_FULL_SPEED(294),
+  USB_2_0_HIGH_SPEED(295),
+  AUERSWALD_LOG(296),
+  ZWAVE_TAP(297),
+  SILABS_DEBUG_CHANNEL(298),
+  FIRA_UCI(299),
   // Start of footer
   UNKNOWN(Integer.MAX_VALUE);
 
@@ -255,6 +262,16 @@ public enum LinkType {
    */
   public int code() {
     return code;
+  }
+
+  /**
+   * Returns the one established DLT for the
+   * silabs debug channel.
+   *
+   * @return
+   */
+  public static LinkType silabsDebugChannel() {
+    return SILABS_DEBUG_CHANNEL;
   }
 
   /**
